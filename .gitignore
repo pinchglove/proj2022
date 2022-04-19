@@ -76,6 +76,9 @@ crashlytics-build.properties
 # 용량커서 안 올라가는 fbx 파일들 업로드 안되게 제거하기 위해 추가
 *.fbx
 
-#정은- 페그보드
+#정은- 페그보드, 풍선
 /PegBoard/Library
 /PegBoard/Assets/PaidAsset/
+/Balloon/Library
+/Balloon/Assets/PaidAsset/
+
