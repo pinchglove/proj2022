@@ -77,10 +77,10 @@ crashlytics-build.properties
 *.fbx
 
 #정은- 페그보드, 풍선
-/PegBoard/Library
-/PegBoard/Assets/PaidAsset/
-/Balloon/Library
-/Balloon/Assets/PaidAsset/
+/PegBoard/Library/
+/PegBoard/Assets/PaidAssets/
+/Balloon/Library/
+/Balloon/Assets/PaidAssets/
 
 #동재
 /PinchGlove_MaxPower/Assets/PaidAssets/
