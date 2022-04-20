@@ -7,6 +7,8 @@ TagManager:
   - Balloons
   - pop
   - POP
+  - EndPanel
+  - PlayTimePanel
   layers:
   - Default
   - TransparentFX
