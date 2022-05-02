@@ -85,3 +85,5 @@ crashlytics-build.properties
 #동재
 /PinchGlove_MaxPower/Assets/PaidAssets/
 /PinchGlove_MaxPower/Library/
+/SmartPinchGlove/Assets/PaidAssets/
+/SmartPinchGlove/Library/
