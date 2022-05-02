@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+//정은 프로젝트
 public class BalloonKill : MonoBehaviour
 {
     #region 변수선언
@@ -20,10 +20,12 @@ public class BalloonKill : MonoBehaviour
     public AudioSource audioSource; //오디오 플레이어
     public GameObject EndPanel; // 결과패널
     public GameObject PlaytimePanel; // 수행시간 패널
+    public GameObject StartPanel;   //시작버튼 + (카운트다운)패널
     public Text[] text;  //결과 텍스트 배열
     public float avar; //평균
     public float mean; //표준편차
     public Text[] playtext;
+    public Text countdown_Text; //카운트다운 텍스트
     #endregion
 
     #region 표준편차 함수
@@ -87,6 +89,7 @@ public class BalloonKill : MonoBehaviour
     }
     #endregion
 
+
     #region 태핑하면 풍선 없애기 함수
     IEnumerator killball(int count)
     {
@@ -102,7 +105,7 @@ public class BalloonKill : MonoBehaviour
                 EndPanel.SetActive(true);  //결과패널 액티브
             }
 
-            if (Inputdata.index_F < 50)  // 탭 뗄 때!
+            if (Inputdata.index_F < 30)  // 탭 뗄 때!
             {
                 ballcount++;  //카운트 업
                 isKilling = false; 
@@ -116,47 +119,86 @@ public class BalloonKill : MonoBehaviour
 
     void Start()
     {
+        
         Balloons = GameObject.FindWithTag("Balloons"); //풍선 부모 객체
         POP = GameObject.FindWithTag("POP"); // 파티클 부모객체
         babyballs = getBalls(Balloons); // 풍선 각 객체 받아오기
+        Pop = getPop(POP); //풍선 파티클 각 객체 받아오기
         playTime = 0f; // 플레이시간 초기화
         isKilling = false; 
         ballcount = 0;  //풍선개수 세기 초기화
         idleTime = new float[babyballs.Length]; // 탭사이 유휴시간 배열 초기화
-        Pop = getPop(POP); //풍선 파티클 각 객체 받아오기
-        isPlaying = true; 
+        isPlaying = false; 
         audioSource = this.GetComponent<AudioSource>(); //오디오 소스 받아오기
         EndPanel = GameObject.FindWithTag("EndPanel"); //마지막 패널 받아오기
         text = getText(EndPanel); // 텍스트 배열 받아오기
         EndPanel.SetActive(false);  //End패널 꺼진상태로 시작
         PlaytimePanel = GameObject.FindWithTag("PlayTimePanel"); // 게임중 수행시간 체크용 패널
         playtext = getText(PlaytimePanel);
+        PlaytimePanel.SetActive(false);
+        StartPanel = GameObject.Find("StartPanel");
+        countdown_Text = StartPanel.transform.Find("countdown_Text").gameObject.GetComponent<Text>();
         //start패널 액티브일 때 timeScale 0f로 시작하기 수정
     }
 
 
     public void Update()
     {
+        if (ballcount >= 10)
+        {
+            ballcount = 0;
+        }
         if (isPlaying)
         {
             playTime += Time.deltaTime;
             idleTime[ballcount] += Time.deltaTime;
         }
 
-
-        if (Inputdata.index_F >= 50 && !isKilling)
-        //if (Input.GetKeyDown(KeyCode.B) && !isKilling)
+        if (isPlaying)
         {
-            StartCoroutine(killball(ballcount));
-            audioSource.PlayOneShot(popSound);
+            if (Inputdata.index_F >= 30 && !isKilling)
+            //if (Input.GetKeyDown(KeyCode.B) && !isKilling)
+            {
+                StartCoroutine(killball(ballcount));
+                audioSource.PlayOneShot(popSound);
+            }
+           
         }
         text[0].text = playTime.ToString("N2") + " 초";
-        text[1].text = (10 / playTime).ToString("N2")+" Hz";
+        text[1].text = (10 / playTime).ToString("N2") + " Hz";
         avar = Avrg(idleTime);
         mean = Mean(idleTime);
         text[2].text = avar.ToString("N2") + " 초";
         text[3].text = mean.ToString("N2") + " 초";
         playtext[0].text = playTime.ToString("N2") + "초";
     }
+    #region 카운트다운 코루틴과 함수
+    public void startCount()
+    {
+        StartCoroutine(CountdownToStart(3));
+    }
+
+    IEnumerator CountdownToStart(int countdownTime)
+    {
+        // 게임 시작 전 카운트다운
+        countdown_Text.gameObject.SetActive(true);
+
+        while (countdownTime > 0)
+        {
+            countdown_Text.text = countdownTime.ToString();
+            yield return new WaitForSecondsRealtime(1f);
+            countdownTime--;
+        }
+        countdown_Text.text = "시작!";
+        yield return new WaitForSecondsRealtime(1f);
+        countdown_Text.gameObject.SetActive(false);
+        StartPanel.transform.Find("Button").gameObject.SetActive(true);
+        StartPanel.gameObject.SetActive(false);
+        PlaytimePanel.gameObject.SetActive(true);
+        isPlaying = true;
+    }
+    #endregion
 }
+
+
 //탭간격(o), (10/전체시간)Hz, 파티클(O)

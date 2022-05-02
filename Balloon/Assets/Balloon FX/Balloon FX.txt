@@ -1,0 +1,23 @@
+----------------------------------------
+---Balloon FX---------------------------
+----------------------------------------
+
+To use the effects, import the asset to your project.
+The effect prefabs can simply be dragged and dropped into the scene and they will play automatically.
+----------------------------------------
+
+Two types of balloon effects are included in this pack. A "Looping" type which will loop forever or until disabled by a script.
+
+Second type is a "Release" type which will release one set of balloons.
+
+The balloons will (more or less) realistically bump into things on their path upwards.
+They will also point towards the direction they are moving.
+
+----------------------------------------
+
+Balloon FX by Kenneth "Archanor" Foldal Moe
+
+Twitter: @archanor
+Support: archanor.work@gmail.com
+
+----------------------------------------
