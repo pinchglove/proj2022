@@ -62,11 +62,11 @@ public class cube : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            Serial.instance.Active();
+            Serial.instance.SerialSendingStart();
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Serial.instance.End();
+            Serial.instance.SerialSendingStop();
         }
     }
 
@@ -90,9 +90,9 @@ public class cube : MonoBehaviour
             yield return null;  // 코루틴 안에 while문 들어가려면 이게 필수
         }
         //반복문 끝나고 실행 할 거 해주면 됨
+        Debug.Log("배열 수: " + inputdata_list.Count);
         Debug.Log("Max :"+inputdata_list.Max());
         pinch_Max = inputdata_list.Max();
-        Debug.Log(inputdata_list.Count);
 
 
         //bool checkPinchOut = true;
