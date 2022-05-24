@@ -47,11 +47,13 @@ namespace BNG {
                 istest = false;
             }
             */
+            /*
             if (Input.GetKey(KeyCode.K)){
                 istest = true;
 
             }
-            if ((Input.GetKey(KeyCode.C) || Inputdata.index_F > GameManager.force)) // && InputBridge.Instance.RightGrip < 1
+            */
+            if (( Inputdata.index_F > GameManager.force)) // && InputBridge.Instance.RightGrip < 1 || Input.GetKey(KeyCode.C) ||
             {
                 InputBridge.Instance.RightGrip += Time.deltaTime*5;
                //InputBridge.Instance.RightGrip = 0.99f;
@@ -63,7 +65,7 @@ namespace BNG {
             }
             else
                 InputBridge.Instance.RightGrip = 0;
-
+            /*
             if (Input.GetKeyDown(KeyCode.B))
             {
                 //Serial.instance.SerialSendingStart();
@@ -72,6 +74,7 @@ namespace BNG {
             {
                 //Serial.instance.SerialSendingStop();
             }
+            */
             if (InputBridge.Instance.XButton)
             {
                 GameMenu._Instance.Pause();

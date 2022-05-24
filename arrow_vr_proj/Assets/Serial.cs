@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Collections;
 
 public static class Inputdata // 다른 스크립트에서 사용을 위한 데이터 값 저장용 변수 생성
 {
@@ -42,8 +42,8 @@ public class Serial : MonoBehaviour
 
     void Start()
     {
-        /* 직접 포트 지정해서 연결하는 코드
-        sp = new SerialPort("COM3", 115200, Parity.None, 8, StopBits.One); // 초기화
+        //직접 포트 지정해서 연결하는 코드
+        sp = new SerialPort("COM4", 115200, Parity.None, 8, StopBits.One); // 초기화
         try
         {
             sp.Open(); // 프로그램 시작시 포트 열기
@@ -57,9 +57,10 @@ public class Serial : MonoBehaviour
         {
             Debug.Log(ex);
         }
-        */
-        ConnectSerial();
-        SerialSendingStop(); // 연결된 이후 게임 플레이 전까지 데이터 전송 stop시켜놓음
+
+        //ConnectSerial();
+        //SerialSendingStop(); // 연결된 이후 게임 플레이 전까지 데이터 전송 stop시켜놓음
+        StartCoroutine(SerialReceiveTest());
     }
 
     public void ConnectSerial()
@@ -115,7 +116,7 @@ public class Serial : MonoBehaviour
                 queue.Enqueue(s.Replace("\r",""));
             }
         }
-
+        /*
         if (queue.Any())    //큐가 비어있지 않으면
         {
             if (str == "")  //str 초기화 상태인지 확인
@@ -136,7 +137,8 @@ public class Serial : MonoBehaviour
             }
  
         }
-
+        */
+  
         /* 아래는 a,b로 구분이 아닌, 2,3으로 들어올 때 "2,~~~~,3\r\n" 문자 구분이 안되서 길이로 구분했던 코드 - 에러가 좀 있다.
         print("=====================================================================");
         string tmp = sp.ReadExisting();
@@ -198,7 +200,35 @@ public class Serial : MonoBehaviour
         */
     }
 
-    void datareceive()
+    public IEnumerator SerialReceiveTest()
+    {
+        while (true)
+        {
+            if (queue.Any())    //큐가 비어있지 않으면
+            {
+                if (str == "")  //str 초기화 상태인지 확인
+                    str = queue.Dequeue();  // queue에서 빼서 str에 넣어줌
+                else if (!str.Contains('a'))    // 현재 조건에서 str의 맨 처음에 a가 없을 경우 받아온 데이터가 깨진 상태일 것으로 예상 
+                {
+                    Debug.Log("a없음:" + str);
+                    str = "";
+                }
+                if (str.Contains('a') && str.Contains('b'))  //str이 a와 b를 포함하고 있으면 
+                {                                                            // "a,0000,0000,0000,0000,0000,b\r" 이 형식이 필요한데 \r은 버려도 됨
+                    str = str.Replace('a', '2').Replace('b', '3');            //a를2로, b를3으로 바꿔주고 데이터 처리  a를 버리고 처리할까? 흠 굳이 이긴 한데 그럼 조금더 빠르긴 할듯?
+                    datareceive();  //데이터 처리
+                }
+                else if (queue.Any())    //위 if문 처럼 완벽한 포멧을 갖추고 있지 않으면 && queue가 비어있지 않으면 -> str에 queue에서 빼서 더해줌, 이후 다시 돌면서 포멧 갖춰지면 데이터 처리됨
+                {
+                    str += queue.Dequeue();
+                }
+            }
+            yield return null;
+
+        }
+    }
+
+        void datareceive()
     {
         tempstr = str.Split(','); // , 단위로 나눠서 배열에 순서대로 저장
         
@@ -208,7 +238,7 @@ public class Serial : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log("error" + e);
+            Debug.Log("error" + e);     
             return;
         }
         Inputdata.end = data[6];
