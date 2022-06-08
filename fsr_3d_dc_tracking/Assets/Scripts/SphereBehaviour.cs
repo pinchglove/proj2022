@@ -21,11 +21,15 @@ public class SphereBehaviour : MonoBehaviour
         if (transform.position.x <= pivot)
         {
             first = transform.position.y; //sp
+            if(Manager.number == 1)
+            {
+                Manager.globalTimer = 80;
+            }
             Manager.value = Mathf.Pow((PlayerBehaviour.yCoord - first), 2); //sp
             Manager.number++; //n sp x
             Manager.doy.Add(Manager.value); //until sigma sp x
             Manager.average = Manager.doy.Average(); //sp x
-            Manager.last = Mathf.Sqrt(Manager.average); //sp x
+            Manager.rmse = Mathf.Sqrt(Manager.average); //sp x
             Destroy(gameObject);
         }
         else transform.Translate(-1 * Time.deltaTime, 0, 0);

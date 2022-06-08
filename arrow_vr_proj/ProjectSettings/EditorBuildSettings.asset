@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/PaidAssets/BNG Framework/Scenes/Vehicle Example.unity
     guid: d96233ee44d985d4fb8dc23a907c06eb
+  - enabled: 1
+    path: Assets/Scenes/ArrowVR_Scene.unity
+    guid: 3a46fd96198ec5242b5b66e37b90991b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: fa58b29ec7f75b94a91f95bc3dd0c612,
       type: 2}

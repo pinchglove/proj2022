@@ -8,7 +8,17 @@ using UnityEngine.UI;
 public class GameMenu : MonoBehaviour
 {
     public GameObject pausePanel;
-
+    public GameObject menuPanel;
+    public GameObject resultPanel;
+    public Text scoreText;
+    public Text pauseWeightText;
+    public Text pauseRTimeText;
+    public Text pauseITimeText;
+    public Text pauseScoreText;
+    public Text resultWeightText;
+    //public Text resultRTimeText;
+    public Text resultITimeText;
+    public Text resultScoreText;
     #region Singleton
     private static GameMenu Instance;
     public static GameMenu _Instance
@@ -36,9 +46,9 @@ public class GameMenu : MonoBehaviour
     {
         //if (pausePanel.activeSelf)
             //pausePanel.SetActive(false);
-        if (!pausePanel.activeSelf)
+        if (!menuPanel.activeSelf)
         {
-            Pause();
+            ShowMenu();
             //weightText.ActivateInputField();
         }
     }
@@ -46,20 +56,29 @@ public class GameMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        scoreText.text = "Score: " + GameManager.score.ToString();
+        pauseWeightText.text = "Weight: " + GameManager.force.ToString();
+        pauseITimeText.text = "Initial Time: " + GameManager.iTime.ToString("N2");
+        //pauseRTimeText.text = "Remaining Time: " + GameManager.rTime.ToString("N2");
+        pauseScoreText.text = scoreText.text;
+        resultWeightText.text = pauseWeightText.text;
+        resultITimeText.text = pauseITimeText.text;
+        resultScoreText.text = pauseScoreText.text;
+    }
+    public void ShowMenu()
+    {
+        GameManager.paused = true;
+        if(menuPanel.activeSelf == false)
+            menuPanel.SetActive(true);
+        if (pausePanel.activeSelf == true)
+            pausePanel.SetActive(false);
+        if (resultPanel.activeSelf == true)
+            resultPanel.SetActive(false);
+            //GameManager.paused = true;
+    }
+    public void GameStart()
+    {
         
-    }
-    public void Pause()
-    {
-        //Time.timeScale = 0.0f;
-        //overlayKeyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.DecimalPad);
-        if(pausePanel.activeSelf ==false)
-        { 
-            pausePanel.SetActive(true);
-            GameManager.paused = true;
-        }
-    }
-    public void Resume()
-    {
         GameManager.force = (int)ShowSliderValueToText.WeightSliderValue;
         if (GameManager.iTime == 0 || (GameManager.iTime != ShowSliderValueToText.timeSliderValue))
         {
@@ -70,6 +89,23 @@ public class GameMenu : MonoBehaviour
         {
 
         }
+        
+        Time.timeScale = 1f;
+        GameManager.paused = false;
+        menuPanel.SetActive(false);
+    }
+    public void Pause()
+    {
+        Time.timeScale = 0.0f;
+        //overlayKeyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.DecimalPad);
+        if(pausePanel.activeSelf ==false)
+        { 
+            pausePanel.SetActive(true);
+            GameManager.paused = true;
+        }
+    }
+    public void Resume()
+    {
 
         //Serial.SerialSendingStart();
         //BNG.Grabber.gotForce = (int)ShowSliderValueToText.WeightSliderValue;
@@ -77,14 +113,19 @@ public class GameMenu : MonoBehaviour
         Time.timeScale = 1f;
         GameManager.paused = false;
         pausePanel.SetActive(false);
-
     }
     public void Restart()
     {
         GameManager.rTime = 0;
         GameManager.iTime = 0;
         GameManager.score = 0;
-        SceneManager.LoadScene("stvr_proto");
+        SceneManager.LoadScene("ArrowVR_Scene");
         //Application.LoadLevel(Application.loadedLevel);
+    }
+    public void GameOver()
+    {
+        Time.timeScale = 0.0f;
+        GameManager.paused = true;
+        resultPanel.SetActive(true);
     }
 }

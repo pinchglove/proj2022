@@ -19,7 +19,7 @@ public class SendItem : MonoBehaviour
         sendTimer -= Time.deltaTime;
         if(sendTimer <= 0)
         {
-            Instantiate(floor, new Vector3(10, 0, 0), transform.rotation);
+            Instantiate(floor, new Vector3(10, -0.8f, 0), transform.rotation);
             sendTimer = frequency;
         }
     }

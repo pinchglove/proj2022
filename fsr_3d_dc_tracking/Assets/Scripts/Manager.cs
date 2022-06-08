@@ -1,42 +1,60 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Linq;
 
 public class Manager : MonoBehaviour
 {
     // Start is called before the first frame update
-    public static float rmse_value;
+    public float rmse_value;
     public static List<float> doy = new List<float>();
     public static float value;
     public static int number;
     public static float average;
-    public static float last;
+    public static float rmse;
     public static float globalTimer;
     //public static float nextPos;
     public float r;
     public float v;
     public int n;
     public float a;
-    public float l;
+    //public float l;
     public float gT;
-   // public float nP;
+    // public float nP;
+    public static bool paused;
     void Start()
     {
-        globalTimer = 80;  
+        Time.timeScale = 1f;
+        globalTimer = 97;
+        rmse_value = 0;
+        doy.Clear();
+        number = 0;
+        average = 0;
+        paused = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         globalTimer -= Time.deltaTime;
-        r = rmse_value;
-        v = value;
-        n = number;
-        a = average;
-        l = last;
-        gT = globalTimer;
-        if(globalTimer < 0)
+        
+        v = value; //for debugging
+        n = number; //for debugging
+        a = average; //for debugging
+        rmse_value = rmse; // for debugging, l = last;
+        gT = globalTimer; //for debugging
+        if (globalTimer < 0 && number > 0)
+        {
+            //Time.timeScale = 0f;
+            GameSceneUI.instance.GameOver();
+        }
+        if (paused == false)
+        {
+            Time.timeScale = 1f;
+        }
+        else
         {
             Time.timeScale = 0f;
         }

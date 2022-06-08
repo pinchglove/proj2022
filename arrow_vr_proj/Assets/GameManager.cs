@@ -11,11 +11,11 @@ public class GameManager : MonoBehaviour
     public static int score;
     public int sc;
     public TextMesh scoreText;
-    public static int force;
+    public static int force; //weight
     public int difficulty;
     public TextMesh TimeText;
-    public static float rTime;
-    public static float iTime;
+    public static float rTime; //remaining time
+    public static float iTime; //init time
     public static bool paused;
 
     // Start is called before the first frame update
@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour
         {
             rTime -= Time.deltaTime;
         }
-        else {
-            GameMenu._Instance.Pause();
+        else if(rTime < 0 && paused == false) { 
+            GameMenu._Instance.GameOver();
         }
     }
 
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + score.ToString();
         TimeText.text = "Time: " + rTime.ToString("N2") + "s";
     }
-
+    /*
     private void KeyPress_Sim()
     {
         InputSimulator inputSimulator = new InputSimulator();
@@ -87,5 +87,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Key Pressed");
         //inputSimulator.Keyboard.KeyDown(WindowsInput.Native.VirtualKeyCode.VK_Z);
     }
+    */
 }
 
