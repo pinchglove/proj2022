@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int selectedFinger = 0;  //기본 검지
+    public int selectedFinger = 1;  //기본 검지
     public void setFinger()  //측정할 손가락 선택
     {
         Dropdown dropdown = GameObject.Find("Dropdown").GetComponent<Dropdown>();   //이름 바꾸기 FingerDropdown

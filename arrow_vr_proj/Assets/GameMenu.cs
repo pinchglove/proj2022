@@ -56,10 +56,10 @@ public class GameMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = "Score: " + GameManager.score.ToString();
-        pauseWeightText.text = "Weight: " + GameManager.force.ToString();
-        pauseITimeText.text = "Initial Time: " + GameManager.iTime.ToString("N2");
-        //pauseRTimeText.text = "Remaining Time: " + GameManager.rTime.ToString("N2");
+        scoreText.text = "Score: " + Manager.score.ToString();
+        pauseWeightText.text = "Weight: " + Manager.force.ToString();
+        pauseITimeText.text = "Initial Time: " + Manager.iTime.ToString("N2");
+        //pauseRTimeText.text = "Remaining Time: " + Manager.rTime.ToString("N2");
         pauseScoreText.text = scoreText.text;
         resultWeightText.text = pauseWeightText.text;
         resultITimeText.text = pauseITimeText.text;
@@ -67,31 +67,31 @@ public class GameMenu : MonoBehaviour
     }
     public void ShowMenu()
     {
-        GameManager.paused = true;
+        Manager.paused = true;
         if(menuPanel.activeSelf == false)
             menuPanel.SetActive(true);
         if (pausePanel.activeSelf == true)
             pausePanel.SetActive(false);
         if (resultPanel.activeSelf == true)
             resultPanel.SetActive(false);
-            //GameManager.paused = true;
+            //Manager.paused = true;
     }
     public void GameStart()
     {
         
-        GameManager.force = (int)ShowSliderValueToText.WeightSliderValue;
-        if (GameManager.iTime == 0 || (GameManager.iTime != ShowSliderValueToText.timeSliderValue))
+        Manager.force = (int)ShowSliderValueToText.WeightSliderValue;
+        if (Manager.iTime == 0 || (Manager.iTime != ShowSliderValueToText.timeSliderValue))
         {
-            GameManager.iTime = ShowSliderValueToText.timeSliderValue;
-            GameManager.rTime = GameManager.iTime;
+            Manager.iTime = ShowSliderValueToText.timeSliderValue;
+            Manager.rTime = Manager.iTime;
         }
-        else if(GameManager.iTime != 0 && (GameManager.iTime != GameManager.rTime))
+        else if(Manager.iTime != 0 && (Manager.iTime != Manager.rTime))
         {
 
         }
         
         Time.timeScale = 1f;
-        GameManager.paused = false;
+        Manager.paused = false;
         menuPanel.SetActive(false);
     }
     public void Pause()
@@ -101,7 +101,7 @@ public class GameMenu : MonoBehaviour
         if(pausePanel.activeSelf ==false)
         { 
             pausePanel.SetActive(true);
-            GameManager.paused = true;
+            Manager.paused = true;
         }
     }
     public void Resume()
@@ -111,21 +111,21 @@ public class GameMenu : MonoBehaviour
         //BNG.Grabber.gotForce = (int)ShowSliderValueToText.WeightSliderValue;
         //overlayKeyboard = null;
         Time.timeScale = 1f;
-        GameManager.paused = false;
+        Manager.paused = false;
         pausePanel.SetActive(false);
     }
     public void Restart()
     {
-        GameManager.rTime = 0;
-        GameManager.iTime = 0;
-        GameManager.score = 0;
+        Manager.rTime = 0;
+        Manager.iTime = 0;
+        Manager.score = 0;
         SceneManager.LoadScene("ArrowVR_Scene");
         //Application.LoadLevel(Application.loadedLevel);
     }
     public void GameOver()
     {
         Time.timeScale = 0.0f;
-        GameManager.paused = true;
+        Manager.paused = true;
         resultPanel.SetActive(true);
     }
 }

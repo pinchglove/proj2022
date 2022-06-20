@@ -9,9 +9,8 @@ public class PlayerBehaviour : MonoBehaviour
     public static float yCoord;
     public float maxForce; //Y축의 최대 높이는 최대 힘의 50%에 도달 시에 도달하도록 최대높이->7.5
     public static float mf;
+    public static float speed;
     Vector3 startPosition;
-    //가정: 1000
-    // 1000(MAXFORCE) / 2 / 7.5 -> ySpeed
     void Start()
     {
         startPosition = transform.position;
@@ -22,6 +21,7 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         transform.Translate(0, ySpeed, 0);
         ySpeed = Mathf.Lerp(ySpeed, yTarget, 0.025f);
         yCoord = transform.position.y;
@@ -31,12 +31,14 @@ public class PlayerBehaviour : MonoBehaviour
         {
             ySpeed = 0.03f;
         }
-        /*
-        //Serial
-        transform.Translate(0, Time.deltaTime, 0);
-        speed = 7.5 / maxForce;
-        //transform.position.y = speed * Inputdata.index_F;
-        transform.Translate(0, speed * Inputdata.index_F, 0);
         */
+        
+        //Serial
+        //transform.Translate(0, Time.deltaTime, 0);
+        speed = 7.5f / maxForce * 2f;
+        yCoord = speed * GameManager.instance.GetInputData();
+        //transform.position.y = speed * Inputdata.index_F;
+        transform.position = new Vector3(-6.87f, yCoord, 0) ;
+        
     }
 }
