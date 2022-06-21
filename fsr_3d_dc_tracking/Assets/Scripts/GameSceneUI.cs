@@ -89,9 +89,9 @@ public class GameSceneUI : MonoBehaviour
     // 게임 재시작
     public void Restart()
     {
-        //Manager.rmse_value = 0;
-        //Manager.doy.Clear();
-        //Manager.number = 0;
+        Manager.rmse = 0;
+        Manager.doy.Clear();
+        Manager.number = 0;
         SceneManager.LoadScene("SampleScene");
         //GameSceneUI._Instance.GameStart();
     }

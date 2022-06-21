@@ -53,12 +53,12 @@ namespace BNG {
 
             }
             */
-            if (( GameManager.instance.GetInputData() > Manager.force)) // && InputBridge.Instance.RightGrip < 1 || Input.GetKey(KeyCode.C) ||
+            if (( SelectFinger.GetInputData() > Manager.force)) // && InputBridge.Instance.RightGrip < 1 || Input.GetKey(KeyCode.C) ||
             {
                 InputBridge.Instance.RightGrip += Time.deltaTime*5;
                //InputBridge.Instance.RightGrip = 0.99f;
             }
-            else if (GameManager.instance.GetInputData() <= Manager.force) //&& InputBridge.Instance.RightGrip > 0
+            else if (SelectFinger.GetInputData() <= Manager.force) //&& InputBridge.Instance.RightGrip > 0
             {
                 InputBridge.Instance.RightGrip -= Time.deltaTime * 5;
                 //InputBridge.Instance.RightGrip = 0;

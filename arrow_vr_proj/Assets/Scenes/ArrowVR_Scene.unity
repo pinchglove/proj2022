@@ -4723,10 +4723,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 886458735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c5bf9a875cbbeb43bddb2b8035deddb, type: 3}
+  m_Script: {fileID: 11500000, guid: 33e4a942cb75feb40b33a598f4f12bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFinger: 0
 --- !u!114 &886458739
 MonoBehaviour:
   m_ObjectHideFlags: 0
