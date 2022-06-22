@@ -20,7 +20,7 @@ public class GameSceneUI : MonoBehaviour
     public Text resultMP;
     public Text resultFR;
 
-    
+
     #region instance
     public static GameSceneUI instance;
     // Start is called before the first frame update
@@ -35,15 +35,15 @@ public class GameSceneUI : MonoBehaviour
         instance = this;
     }
     #endregion
-    
+
     void Start()
     {
         //Time.timeScale = 1f;
-        if(pausePanel.activeSelf == true)
+        if (pausePanel.activeSelf == true)
         {
             pausePanel.SetActive(false);
         }
-        if(resultPanel.activeSelf == true)
+        if (resultPanel.activeSelf == true)
         {
             resultPanel.SetActive(false);
         }
@@ -83,6 +83,9 @@ public class GameSceneUI : MonoBehaviour
         resultPanel.SetActive(true);
         resultAR.text = averageRMSE.text;
         resultMP.text = maxPower.text;
+        Data.instance.trackingFreq = HitItem.fq;
+        Data.instance.trackMaxForce = PlayerBehaviour.mf;
+        Data.instance.rmseValue = Manager.rmse;
         //StopCoroutine(AddScore());
     }
 
@@ -95,7 +98,18 @@ public class GameSceneUI : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
         //GameSceneUI._Instance.GameStart();
     }
-
+    /*
+    public void SaveRestart()
+    {
+        Data.instance.trackingFreq = HitItem.fq;
+        Data.instance.trackMaxForce = PlayerBehaviour.mf;
+        Data.instance.rmseValue = Manager.rmse;
+        Manager.rmse = 0;
+        Manager.doy.Clear();
+        Manager.number = 0;
+        SceneManager.LoadScene("SampleScene");
+    }
+    */
     // 게임 종료
     public void Quit()
     {

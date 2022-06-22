@@ -127,5 +127,8 @@ public class GameMenu : MonoBehaviour
         Time.timeScale = 0.0f;
         Manager.paused = true;
         resultPanel.SetActive(true);
+        Data.instance.arrowScore = Manager.score;
+        Data.instance.arrowWeight = Manager.force;
+        Data.instance.arrowTime = Manager.iTime;
     }
 }

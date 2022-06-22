@@ -7,10 +7,11 @@ public class SendItem : MonoBehaviour
     // Start is called before the first frame update
     public float sendTimer = 0;
     public float frequency = 8f;
+    //public static float fq;
     public GameObject floor;
     void Start()
     {
-        
+        //fq = frequency;
     }
 
     // Update is called once per frame
