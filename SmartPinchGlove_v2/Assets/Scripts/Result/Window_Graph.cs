@@ -25,13 +25,13 @@ public class Window_Graph : MonoBehaviour
     private RectTransform average_line;
     private RectTransform average_score;
     float yMaximum = 100f; //y축의 최대값 (단, 최저값은 0) 
-    float y2Maximum = 2f; //y축의 최대값 (단, 최저값은 0) 
+    float y2Maximum = 200f; //y축의 최대값 (단, 최저값은 0) 
     public bool isSecond = false;
     public bool isThird = false;
     float separatorCount = 10;
     float graphHeight;
     float xSize = 130;            //x축의 간격
-
+    List<float> datasToProcess; 
     //드롭다운으로 바뀌는 gameobject
 
 
@@ -39,6 +39,7 @@ public class Window_Graph : MonoBehaviour
 
     private void Awake()
     {
+        datasToProcess = new List<float>() {0.001f, 100f, 100f, 1f, 100f, 1f, 100f, 1f}; // 0:1000g(힘), 1:0.45초(상승시간), 2:0.45초(하강시간) , 3:2hz(빈도), 4:0.45초(간격), 5:80%(정확도), 6:rmse(rmse), 7: 40개(상자)
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>(); //전체 틀
         labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>(); //x축
         labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>(); //y축
@@ -66,29 +67,29 @@ public class Window_Graph : MonoBehaviour
                 Debug.Log("메인");
                 break;
             case "strength_graph":
-                yMaximum = 2f;
+                yMaximum = 10f;
                 //최대힘 데이터(DB)
                 SetMeasurementData(valueDic, "maxPower");
-                valueDic.Keys.ToList().ForEach(key =>
-                {
-                    valueDic[key] = valueDic[key] / 1000f;
-                });
+                ProcessData(valueDic, "maxPower");
                 ShowGraph(valueDic, GetTotalAverageData("maxPower"), (string _i) => (_i), (float _f) => "" + (_f));
                 //ShowGraph 딕셔너리 Value가 float일 때는 Math.RoundToInt 빼기
 
                 //라이징 타임 데이터(DB)
                 SetMeasurementData(valueDic2, "risingTime");
+                ProcessData(valueDic2, "risingTime");
                 ShowGraph2(valueDic2, (string _i) => (_i), (float _f) => "" + (_f));//딕셔너리로 값 변경
 
                 //릴리즈 타임 데이터(DB)
                 SetMeasurementData(valueDic3, "releaseTime");
+                ProcessData(valueDic3, "releaseTime");
                 ShowGraph3(valueDic3, (string _i) => (_i), (float _f) => "" + (_f));//날짜와 수치로 변경 
 
                 break;
             case "Intertap_graph":
                 //탭사이간격데이터(DB)
-                yMaximum = 2f;
+                yMaximum = 100f;
                 SetMeasurementData(valueDic, "interval");
+                ProcessData(valueDic, "interval");
                 ShowGraph(valueDic, GetTotalAverageData("interval"), (string _i) => (_i), (float _f) => "" + (_f));
                 Debug.Log("탭간격");
                 break;
@@ -96,7 +97,8 @@ public class Window_Graph : MonoBehaviour
                 //박스개수 데이터(DB)
                 yMaximum = 50f;
                 SetMeasurementData(valueDic, "boxCount");
-                ShowGraph(valueDic, GetTotalAverageData("boxCount"), (string _i) => (_i), (float _f) => "" + Mathf.RoundToInt(_f));
+                ProcessData(valueDic, "boxCount");
+                ShowGraph(valueDic, GetTotalAverageData("boxCount"), (string _i) => (_i), (float _f) => "" + (_f));
                 Debug.Log("박스개수");
 
                 break;
@@ -104,13 +106,15 @@ public class Window_Graph : MonoBehaviour
                 //태핑빈도 데이터(DB)
                 yMaximum = 4f;
                 SetMeasurementData(valueDic, "frequency");
+                ProcessData(valueDic, "frequency");
                 ShowGraph(valueDic, GetTotalAverageData("frequency"), (string _i) => (_i), (float _f) => "" + (_f));
                 Debug.Log("탭빈도");
                 break;
             case "trackingErr_graph":
                 //트래킹오차율 데이터(DB)
-                yMaximum = 2f;
+                yMaximum = 100f;
                 SetMeasurementData(valueDic, "rmse");
+                ProcessData(valueDic, "rmse");
                 ShowGraph(valueDic, GetTotalAverageData("rmse"), (string _i) => (_i), (float _f) => "" + (_f));
                 Debug.Log("트래킹오차율");
 
@@ -118,7 +122,8 @@ public class Window_Graph : MonoBehaviour
             case "tapAccur_graph":
                 //태핑정확도 데이터(DB)
                 SetMeasurementData(valueDic, "accuracy");
-                ShowGraph(valueDic, GetTotalAverageData("accuracy"), (string _i) => (_i), (float _f) => "" + Mathf.RoundToInt(_f));
+                ProcessData(valueDic, "accuracy");
+                ShowGraph(valueDic, GetTotalAverageData("accuracy"), (string _i) => (_i), (float _f) => "" + (_f));
                 Debug.Log("태핑정확도");
                 break;
 
@@ -272,7 +277,7 @@ public class Window_Graph : MonoBehaviour
 
 
         int separatorCount = 10;
-/*        //y2축 레이블(0~200)
+        //y2축 레이블(0~200)
         if (this.gameObject.name == "strength_graph")
         {
 
@@ -285,7 +290,7 @@ public class Window_Graph : MonoBehaviour
                 labelY.anchoredPosition = new Vector2(1000f, normalizedValue * graphHeight);
                 labelY.GetComponent<Text>().text = getAxisLabelY(normalizedValue * y2Maximum);
             }
-        }*/
+        }
 
     }
 
@@ -428,12 +433,87 @@ public class Window_Graph : MonoBehaviour
             count++;
             tmp.Add(DB.dataReader.GetFloat(0));
         }
-        if(data == "maxPower")
+        switch (data)
         {
-            return tmp.Average() / 1000f;
+            case "maxPower":
+                return tmp.Average() * datasToProcess[0];
+            case "risingTime":
+                return tmp.Average() * datasToProcess[1];
+            case "releaseTime":
+                return tmp.Average() * datasToProcess[2];
+            case "frequency":
+                return tmp.Average() * datasToProcess[3];
+            case "interval":
+                return tmp.Average() * datasToProcess[4];
+            case "accuracy":
+                return tmp.Average() * datasToProcess[5];
+            case "rmse":
+                return tmp.Average() * datasToProcess[6];
+            case "boxCount":
+                return tmp.Average() * datasToProcess[7];
+            default:
+                break;
+                //Debug.Log("Average : "+tmp.Average());
         }
-        //Debug.Log("Average : "+tmp.Average());
-        return tmp.Average();
+                return tmp.Average();
+        
+    }
+
+    public void ProcessData(SortedDictionary<string,float> dic, string name)
+    {
+        switch (name)
+        {
+            case "maxPower":
+                dic.Keys.ToList().ForEach(key =>
+                {
+                    dic[key] = dic[key] * datasToProcess[0];
+                });
+                break;
+            case "risingTime":
+                dic.Keys.ToList().ForEach(key =>
+                {
+                    dic[key] = dic[key] * datasToProcess[1];
+                });
+                break;
+            case "releaseTime":
+                dic.Keys.ToList().ForEach(key =>
+                {
+                    dic[key] = dic[key]  * datasToProcess[2];
+                });
+                break;
+            case "frequency":
+                dic.Keys.ToList().ForEach(key =>
+                {
+                    dic[key] = dic[key] * datasToProcess[3];
+                });
+                break;
+            case "interval":
+                dic.Keys.ToList().ForEach(key =>
+                {
+                    dic[key] = dic[key] * datasToProcess[4];
+                });
+                break;
+            case "accuracy":
+                dic.Keys.ToList().ForEach(key =>
+                {
+                    dic[key] = dic[key] * datasToProcess[5];
+                });
+                break;
+            case "rmse":
+                dic.Keys.ToList().ForEach(key =>
+                {
+                    dic[key] = dic[key] * datasToProcess[6];
+                });
+                break;
+            case "boxCount":
+                dic.Keys.ToList().ForEach(key =>
+                {
+                    dic[key] = dic[key] * datasToProcess[7];
+                });
+                break;
+            default:
+                break;
+        }
     }
 }
 

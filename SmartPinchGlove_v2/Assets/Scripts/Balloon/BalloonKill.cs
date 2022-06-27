@@ -111,7 +111,7 @@ public class BalloonKill : MonoBehaviour
                 if (!isDBInserted)
                 {
                     //쿼리 입력
-                    string query = "INSERT INTO measurement (date,userID,gameID,frequency,interval) VALUES ('" + DateTime.Now.ToString("yyyy년 MM-dd일 HH시 mm분 ss초") + "','" + Data.instance.userID + "','" + "02M" + "','" + Data.instance.tapHertz + "','" + Data.instance.avarIdle + "')";
+                    string query = "INSERT INTO measurement (date,userID,gameID,tapcount,frequency,interval) VALUES ('" + DateTime.Now.ToString("yyyy년 MM-dd일 HH시 mm분 ss초") + "','" + Data.instance.userID + "','" + "02M" + "','" + Data.instance.tapCount  + "','" + Data.instance.tapHertz + "','" + Data.instance.avarIdle + "')";
                     DB.DatabaseInsert(query);
                     isDBInserted = true;
                 }
