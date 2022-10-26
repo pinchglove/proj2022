@@ -6,8 +6,6 @@ using UnityEngine.InputSystem;
 namespace BNG {
     public class ButtonInput : MonoBehaviour
     {
-        public bool istest = false;
-
         public static ButtonInput instance = null;
         private void Awake()
         {
@@ -21,8 +19,7 @@ namespace BNG {
                 if (instance != this)
                     Destroy(this.gameObject);
             }
-            istest = false ;
-
+            GrabberControll.isPinch = false;
         }
 
 
@@ -53,7 +50,16 @@ namespace BNG {
 
             }
             */
-            if (( SelectFinger.GetInputData() > Manager.force)) // && InputBridge.Instance.RightGrip < 1 || Input.GetKey(KeyCode.C) ||
+            if ((Input.GetKey(KeyCode.C) || SelectFinger.GetInputData() > Manager.force) && InputBridge.Instance.RightGrip < 1)
+            {
+                InputBridge.Instance.RightGrip += Time.deltaTime * 5;
+            }
+            else if (InputBridge.Instance.RightGrip > 0)
+            {
+                InputBridge.Instance.RightGrip -= Time.deltaTime * 5;
+            }
+
+ /*           if (( SelectFinger.GetInputData() > Manager.force)) // && InputBridge.Instance.RightGrip < 1 || Input.GetKey(KeyCode.C) ||
             {
                 InputBridge.Instance.RightGrip += Time.deltaTime*5;
                //InputBridge.Instance.RightGrip = 0.99f;
@@ -64,7 +70,7 @@ namespace BNG {
                 //InputBridge.Instance.RightGrip = 0;
             }
             else
-                InputBridge.Instance.RightGrip = 0;
+                InputBridge.Instance.RightGrip = 0;*/
             /*
             if (Input.GetKeyDown(KeyCode.B))
             {

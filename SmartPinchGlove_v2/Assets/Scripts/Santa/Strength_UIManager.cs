@@ -106,7 +106,7 @@ public class Strength_UIManager : MonoBehaviour
 
         while (remainingTime > 0)
         {
-            remainingTIme_Text.text = "남은시간:" + remainingTime.ToString("F1") + "초";
+            remainingTIme_Text.text = "Time limit: " + remainingTime.ToString("F1");
             remainingTime -= Time.deltaTime;
             yield return null;
         }
@@ -169,7 +169,7 @@ public class Strength_UIManager : MonoBehaviour
     {
         start_Panel.SetActive(false);
         end_Panel.SetActive(true);
-        end_Panel.transform.Find("averageScore_Text").GetComponent<Text>().text = "최종 점수: " + Data.instance.maxPower_average.ToString() + "점";
+        end_Panel.transform.Find("averageScore_Text").GetComponent<Text>().text = "최종 점수: " + Data.instance.maxPower_average.ToString("F0") + "점";
         end_Panel.transform.GetChild(1).GetComponent<Text>().text = "상승 시간: " + Data.instance.risingTime.ToString("F2");
         end_Panel.transform.GetChild(2).GetComponent<Text>().text = "하강 시간: " + Data.instance.releaseTime.ToString("F2");
     }

@@ -31,8 +31,7 @@ namespace BNG
         // Update is called once per frame
         void Update()
         {
-           
-            if ((Input.GetKey(KeyCode.C) || Inputdata.index_F > 10) && InputBridge.Instance.RightGrip < 1)
+            if ((Input.GetKey(KeyCode.C) || SelectFinger.GetInputData() > 10) && InputBridge.Instance.RightGrip < 1)
             {
                 InputBridge.Instance.RightGrip += Time.deltaTime * 5;
             }

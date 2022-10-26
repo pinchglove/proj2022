@@ -5,9 +5,9 @@ using UnityEngine;
 public class Data : MonoBehaviour
 {   
     //산타
-    public int maxPower_average;    // 최대 힘 변수
-    public double risingTime;        // 상승 시간
-    public double releaseTime;       // 하강 시간
+    public float maxPower_average;    // 최대 힘 변수
+    public float risingTime;        // 상승 시간
+    public float releaseTime;       // 하강 시간
 
     //풍선
     public float tapCount;      //탭 개수 세주는 변수로 Hz구할 때 나누기 해줘야해서 float, DB에서 문제가 없다며 int로 해줘도됨

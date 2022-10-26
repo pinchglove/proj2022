@@ -18,7 +18,7 @@ public class BoxNode : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Grabber") && Inputdata.index_F > 10)
+        if (other.gameObject.CompareTag("Grabber") && SelectFinger.GetInputData() > 10)
         {
             Debug.Log("팡");
             Destroy(this.gameObject);

@@ -10,6 +10,10 @@ public class Machine : MonoBehaviour
     void Start()
     {
         machine_Renderer = transform.GetChild(0).GetComponent<MeshRenderer>().materials;
+        if (machine_Renderer[1])
+        {
+            machine_Renderer[1].SetFloat("_Position", 0f);
+        }
     }
 
     /*
@@ -28,7 +32,7 @@ public class Machine : MonoBehaviour
     {
         if (other.gameObject.CompareTag("weapon"))
         {
-            Debug.Log("트리거");
+            //Debug.Log("트리거");
             thinStars.Play();
             StartCoroutine(showPowerScore());
         }
@@ -38,11 +42,12 @@ public class Machine : MonoBehaviour
     {
         if (machine_Renderer[1])
         {
+            yield return new WaitForSeconds(0.5f);
             float tmp = 0f;
             machine_Renderer[1].SetFloat("_Position", 0f);
-            while ( tmp <= (float)PinchStrength.pinch_Max/2000)
+            while ( tmp <= PinchStrength.pinch_Max / 6000f)
             {
-                tmp += Time.deltaTime;
+                tmp += Time.deltaTime; 
                 machine_Renderer[1].SetFloat("_Position", tmp);
                 yield return null;
             }

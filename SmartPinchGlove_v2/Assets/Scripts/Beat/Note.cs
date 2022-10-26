@@ -83,7 +83,7 @@ public class Note : MonoBehaviour
             Box.SetActive(false);
             StartCoroutine(HitNote());
         }
-        if (other.tag == "Grabber" && SelectFinger.GetInputData() > 5)
+        if (other.tag == "Grabber" && SelectFinger.GetInputData() > 20)
         {
             Box.SetActive(false);
             StartCoroutine(HitNote());

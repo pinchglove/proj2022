@@ -117,7 +117,7 @@ public class BalloonKill : MonoBehaviour
                 }
             }
 
-            if (Inputdata.index_F < 30)  // 탭 뗄 때!
+            if (SelectFinger.GetInputData() < 30)  // 탭 뗄 때!
             {
                 tapCount++; //카운트 업
                 popcount++; //카운트 업
@@ -224,7 +224,7 @@ public class BalloonKill : MonoBehaviour
             PlayTimeText[1].text = PlayingTime.ToString("N1"); //15초부터 카운트다운해주기
             idle += Time.deltaTime;
 
-            if (Inputdata.index_F >= 30 && !isKilling)
+            if (SelectFinger.GetInputData() >= 30 && !isKilling)
             //if (Input.GetKeyDown(KeyCode.B) && !isKilling)
             {
                 StartCoroutine(killball(ballidx));

@@ -8,10 +8,10 @@ using System;
 
 public class PinchData
 {
-    public double pinch { get; set; }
-    public double time { get; set; }
+    public float pinch { get; set; }
+    public float time { get; set; }
 
-    public PinchData(double p, double t) {
+    public PinchData(float p, float t) {
         pinch = p;
         time = t;
     }
@@ -25,8 +25,8 @@ public class PinchStrength : MonoBehaviour
     private float maxPowerTimer = 0f;
 
     List <PinchData> pinchDatas = new List<PinchData>();
-    List<double> risingTimeList = new List<double>();
-    List<double> releaseTimeList = new List<double>();
+    List<float> risingTimeList = new List<float>();
+    List<float> releaseTimeList = new List<float>();
 
     Animator animator;
     AudioSource beep;
@@ -101,10 +101,10 @@ public class PinchStrength : MonoBehaviour
             yield return null;  // 코루틴 안에 while문 들어가려면 이게 필수
         }
         //데이터 처리부분 (max값, risingtime, releasetime)
-        pinch_Max = Convert.ToInt32((double)pinchDatas.Max(x => x.pinch));  //최대 값
+        pinch_Max = Convert.ToInt32(pinchDatas.Max(x => x.pinch));  //최대 값
 
-        var risingStart = Convert.ToInt32((double)pinchDatas.Max(x => x.pinch) * 0.1); //시작 후 최초 10퍼 값
-        var risingEnd = Convert.ToInt32((double)pinchDatas.Max(x => x.pinch) * 0.9);   //시작 후 최초 90퍼 값
+        var risingStart = Convert.ToInt32(pinchDatas.Max(x => x.pinch) * 0.1); //시작 후 최초 10퍼 값
+        var risingEnd = Convert.ToInt32(pinchDatas.Max(x => x.pinch) * 0.9);   //시작 후 최초 90퍼 값
 
         var risingStartTime = pinchDatas.Where(x => x.pinch >= risingStart).Min(x => x.time);    //10퍼 도달 시간
         var risingEndTime = pinchDatas.Where(x => x.pinch >= risingEnd).Min(x => x.time);        //90퍼 도달 시간
@@ -124,7 +124,7 @@ public class PinchStrength : MonoBehaviour
         
 
         yield return new WaitForSecondsRealtime(1f);
-        Strength_UIManager.Instance.result_Text.text = (playNumber+1).ToString("F0") + "번 결과: " + pinch_Max.ToString() + "점";
+        Strength_UIManager.Instance.result_Text.text = (playNumber+1).ToString("F0") + "번 결과: " + pinch_Max.ToString("F0") + "점";
         results[playNumber] = Convert.ToInt32((double)pinchDatas.Max(x => x.pinch)); //배열에 잘 들어가는지 확인해야함
         if (playNumber < 2)
         {
@@ -139,7 +139,7 @@ public class PinchStrength : MonoBehaviour
             {
                 tmp += results[i];
             }
-            Data.instance.maxPower_average = tmp / 3;
+            Data.instance.maxPower_average = tmp / 3f;
             Data.instance.risingTime = risingTimeList.Average();
             Data.instance.releaseTime = releaseTimeList.Average();
             //DB 넣는 구간 추가

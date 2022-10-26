@@ -15,11 +15,11 @@ public class circleChart_Test : MonoBehaviour
     {
         if (b)
         {
-            image.fillAmount = SelectFinger.GetInputData() / 2000f;
+            image.fillAmount = SelectFinger.GetInputData() / 6000f;
             
             if (progress)
             {
-                progress.text = (int)(image.fillAmount * 2000f) + "";
+                progress.text = (int)(image.fillAmount * 6000f) + "";
             }
         }
     }

@@ -26,7 +26,7 @@ public class EndController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Inputdata.index_F >5 || Input.GetKey(KeyCode.F))
+        if (Inputdata.index_F > 15 || Input.GetKey(KeyCode.F))
         {
             Red.SetActive(true);
         }

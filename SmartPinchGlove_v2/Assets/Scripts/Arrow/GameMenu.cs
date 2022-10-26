@@ -45,7 +45,7 @@ public class GameMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GrabberControll.isPinch = true;
+        GrabberControll.isPinch = false;    // 컨트롤러 그립 잠그기
         //if (pausePanel.activeSelf)
             //pausePanel.SetActive(false);
         if (!menuPanel.activeSelf)

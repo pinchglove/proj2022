@@ -7,8 +7,8 @@ public class ShowSliderValueToText : MonoBehaviour
 {
     public Slider wSliderUI;
     public Slider tSliderUI;
-    private Text weightSliderText;
-    private Text timeSliderText;
+    public Text weightSliderText;
+    public Text timeSliderText;
     public static float WeightSliderValue;
     public static float timeSliderValue;
     public static float time;
@@ -19,10 +19,12 @@ public class ShowSliderValueToText : MonoBehaviour
     }
     void Start()
     {
-        weightSliderText = GetComponent<Text>();
-        timeSliderText = GetComponent<Text>();
+        //weightSliderText = GetComponent<Text>();
+        //timeSliderText = GetComponent<Text>();
         ShowWeightSliderValue();
         ShowTimeSliderValue();
+        //timeSliderText.text = "Time";
+        //weightSliderText.text = "s";
     }
 
     // Update is called once per frame

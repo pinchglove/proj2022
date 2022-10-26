@@ -84,28 +84,37 @@ public class ButtonExercise : MonoBehaviour
     }
     public void SetUserInfo()
     {
-        result_Panel.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "성별 : " + Data.instance.userGender;
-        strength.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "성별 : " + Data.instance.userGender;
-        Inter_tap_interval.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "성별 : " + Data.instance.userGender;
-        box_count.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "성별 : " + Data.instance.userGender;
-        tap_frequency.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "성별 : " + Data.instance.userGender;
-        tracking_error.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "성별 : " + Data.instance.userGender;
-        tapping_accuracy.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "성별 : " + Data.instance.userGender;
+        string gender = "";
+        if(Data.instance.userGender == "남자")
+        {
+            gender = "Male";
+        }
+        else if (Data.instance.userGender == "여자")
+        {
+            gender = "Female";
+        }
+        result_Panel.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "Gender : " + gender;
+        strength.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "Gender : " + gender;
+        Inter_tap_interval.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "Gender : " + gender;
+        box_count.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "Gender : " + gender;
+        tap_frequency.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "Gender : " + gender;
+        tracking_error.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "Gender : " + gender;
+        tapping_accuracy.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("gender").GetComponent<Text>().text = "Gender : " + gender;
 
-        result_Panel.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "나이 : " + Data.instance.userAge.ToString();
-        strength.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "나이 : " + Data.instance.userAge.ToString();
-        Inter_tap_interval.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "나이 : " + Data.instance.userAge.ToString();
-        box_count.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "나이 : " + Data.instance.userAge.ToString();
-        tap_frequency.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "나이 : " + Data.instance.userAge.ToString();
-        tracking_error.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "나이 : " + Data.instance.userAge.ToString();
-        tapping_accuracy.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "나이 : " + Data.instance.userAge.ToString();
+        result_Panel.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "Age : " + Data.instance.userAge.ToString();
+        strength.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "Age : " + Data.instance.userAge.ToString();
+        Inter_tap_interval.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "Age : " + Data.instance.userAge.ToString();
+        box_count.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "Age : " + Data.instance.userAge.ToString();
+        tap_frequency.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "Age : " + Data.instance.userAge.ToString();
+        tracking_error.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "Age : " + Data.instance.userAge.ToString();
+        tapping_accuracy.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("age").GetComponent<Text>().text = "Age : " + Data.instance.userAge.ToString();
 
-        result_Panel.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "이름 : " + Data.instance.userName;
-        strength.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "이름 : " + Data.instance.userName;
-        Inter_tap_interval.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "이름 : " + Data.instance.userName;
-        box_count.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "이름 : " + Data.instance.userName;
-        tap_frequency.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "이름 : " + Data.instance.userName;
-        tracking_error.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "이름 : " + Data.instance.userName;
-        tapping_accuracy.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "이름 : " + Data.instance.userName;
+        result_Panel.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "Name : " + Data.instance.userName;
+        strength.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "Name : " + Data.instance.userName;
+        Inter_tap_interval.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "Name : " + Data.instance.userName;
+        box_count.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "Name : " + Data.instance.userName;
+        tap_frequency.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "Name : " + Data.instance.userName;
+        tracking_error.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "Name : " + Data.instance.userName;
+        tapping_accuracy.transform.Find("상단바").transform.Find("Profile").transform.Find("profile").transform.Find("name").GetComponent<Text>().text = "Name : " + Data.instance.userName;
     }
 }

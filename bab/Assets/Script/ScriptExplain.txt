@@ -1,8 +1,0 @@
-1. BAB_UIManger -> XR Rig Advanced > PlayerController> CameraRig > TrackingSpace> CenterEyeAnchor > Canvas
-캔버스에 스크립트 붙이고 캔버스 안에 패널 배치
-
-2. Collison -> Setting > box1 에 스크립트 붙임(블록이랑 부딪혀야하는 박스)
-
-3. Block -> 첫 위치 고정용 블록 프리팹
-4. BlockIns -> 블록 Instantiate
-5. GrabberControll -> 컨트롤러 제어용(장갑으로 잡을 수 있도록 하는 스크립트) InputBrigdge도 수정해야함
